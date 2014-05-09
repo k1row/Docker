@@ -12,8 +12,8 @@ Docker
 `$ sudo yum -y update`  
 `$ sudo yum -y install wget`   
 
-*ホスト側のSELinuxを切っておかないと※passwd しようとすると以下のエラーが出る。*
-**passwd: unconfined_u:system_r:initrc_t:s0 is not authorized to change the password of user*
+*ホスト側のSELinuxを切っておかないと※passwd しようとすると以下のエラーが出る。*  
+**passwd: unconfined_u:system_r:initrc_t:s0 is not authorized to change the password of user*  
 `$ sudo echo "SELINUX=disabled" > /etc/selinux/config`  
 `$ sudo cd /usr/local/src/`  
 `$ sudo wget http://ftp-srv2.kddilabs.jp/Linux/distributions/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm`  
@@ -70,8 +70,8 @@ Docker
 > centos              webserver           4e9582af70b3        9 minutes ago       605.1 MB
 
 #### 作成したコンテナイメージから、sshdを起動した状態でコンテナを立ち上げてみる
-*-dオプションでバックグラウンド起動*
-*-pオプションでポートフォワーディング*
+*-dオプションでバックグラウンド起動*  
+*-pオプションでポートフォワーディング*  
 `$ sudo docker run -d -p 22 centos:webserver /usr/sbin/sshd -D`  
 
 #### 起動したコンテナを確認
@@ -90,8 +90,9 @@ Docker
           RX packets:50872 errors:0 dropped:0 overruns:0 frame:0
           TX packets:138011 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0
-          RX bytes:2783150 (2.6 MiB)  TX bytes:201929190 (192.5 MiB)
+          RX bytes:2783150 (2.6 MiB)  TX bytes:201929190 (192.5 MiB)  
 
+  
 
 #### 実際にSSH
 `$ ssh -i ~/docker_ssh/docker_rsa -l docker 172.17.42.1 -p 49153`  
@@ -101,6 +102,7 @@ Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '[172.17.42.1]:49153' (RSA) to the list of known hosts.
 [docker@f267d0eafcaf ~]$
 
+  
 # Dokerのコマンド関連
 
 #### コンテナの確認
@@ -120,8 +122,6 @@ Warning: Permanently added '[172.17.42.1]:49153' (RSA) to the list of known host
 
 #### 依存関係などはdocker images の --treeオプションを使うとわかりやすい
 `$ sudo docker images --tree`  
-
-
 
 # 参考URL
 <http://memocra.blogspot.jp/2014/02/dockerdockernginxweb.html>  
