@@ -3,7 +3,7 @@ Docker
 # 事前準備
 
 ####自分のMAC等においてあるDockerfileのコピー
-  gcutil --project="YOUR PROJECT NAME" push "YOUR SERVER NAME" /Users/a12431/Develop/ss/docker /tmp
+`$ gcutil --project="YOUR PROJECT NAME" push "YOUR SERVER NAME" /Users/a12431/Develop/ss/docker /tmp`
 
 #### GCEサーバにログイン
 $ gcutil --service_version="v1" --project="YOUR PROJECT NAME" ssh --zone="YOUR ZONE" "YOUR SERVER NAME"
