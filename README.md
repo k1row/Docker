@@ -1,5 +1,7 @@
 Docker
 ======
+Dockerを利用して、CentOS + nginx サーバの構築
+
 # 事前準備
 
 ####自分のMAC等においてあるDockerfileのコピー
