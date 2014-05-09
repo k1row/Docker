@@ -6,29 +6,28 @@ Docker
 `$ gcutil --project="YOUR PROJECT NAME" push "YOUR SERVER NAME" /Users/a12431/Develop/ss/docker /tmp`
 
 #### GCEサーバにログイン
-$ gcutil --service_version="v1" --project="YOUR PROJECT NAME" ssh --zone="YOUR ZONE" "YOUR SERVER NAME"
+`$ gcutil --service_version="v1" --project="YOUR PROJECT NAME" ssh --zone="YOUR ZONE" "YOUR SERVER NAME"`
 
 #### Dockerのインストール
-$ sudo yum -y update
-$ sudo yum -y install wget
+`$ sudo yum -y update`
+`$ sudo yum -y install wget`
 
 *ホスト側のSELinuxを切っておかないと※passwd しようとすると以下のエラーが出る。*
 **passwd: unconfined_u:system_r:initrc_t:s0 is not authorized to change the password of user*
-$ sudo echo "SELINUX=disabled" > /etc/selinux/config
+`$ sudo echo "SELINUX=disabled" > /etc/selinux/config`
 
-$ sudo cd /usr/local/src/
-$ sudo wget http://ftp-srv2.kddilabs.jp/Linux/distributions/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
-$ sudo rpm -ivh epel-release-6-8.noarch.rpm
-$ sudo yum -y --enablerepo=epel install docker-io
-
-$ sudo chkconfig docker on
-$ sudo service docker start
+`$ sudo cd /usr/local/src/`
+`$ sudo wget http://ftp-srv2.kddilabs.jp/Linux/distributions/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm`
+`$ sudo rpm -ivh epel-release-6-8.noarch.rpm`
+`$ sudo yum -y --enablerepo=epel install docker-io`
+`$ sudo chkconfig docker on`
+`$ sudo service docker start`
 
 #### コンテナ用SSHキーの発行(すべてのコンテナに同一のキーでアクセスする前提)
-$ mkdir ~/docker_ssh
-$ cd ~/docker_ssh/
-$ mkdir ~/.ssh/docker
-$ ssh-keygen -t rsa -C "YOUR EMAIL"
+`$ mkdir ~/docker_ssh`
+`$ cd ~/docker_ssh/`
+`$ mkdir ~/.ssh/docker`
+`$ ssh-keygen -t rsa -C "YOUR EMAIL"`
 
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/USER NAME/.ssh/id_rsa): /home/USER NAME/.ssh/docker/docker_rsa
@@ -51,24 +50,24 @@ The key's randomart image is:
 |                 |
 +-----------------+
 
-$ cp ~/.ssh/docker/docker_rsa.pub ~/docker_ssh/authorized_keys
-$ cp ~/.ssh/docker/docker_rsa ~/docker_ssh/docker_rsa
+`$ cp ~/.ssh/docker/docker_rsa.pub ~/docker_ssh/authorized_keys`
+`$ cp ~/.ssh/docker/docker_rsa ~/docker_ssh/docker_rsa`
 
 #### Dockerfileと同じ場所にauthorized_keysを配置
-$ cp /tmp/docker ~/docker_ssh/authorized_keys
+`$ cp /tmp/docker ~/docker_ssh/authorized_keys`
 
 # Dockerの設定
 
 #### Dockerfileを使ってイメージを作成する
-$ cd /tmp/docker
-$ sudo docker build -t centos:webserver .
- ---> 4e9582af70b3
-Successfully built 4e9582af70b3
+`$ cd /tmp/docker`
+`$ sudo docker build -t centos:webserver .`
+> ---> 4e9582af70b3
+>> Successfully built 4e9582af70b3
 
 #### 完成imageの確認
-$ sudo docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-centos              webserver           4e9582af70b3        9 minutes ago       605.1 MB
+`$ sudo docker images`
+>REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+>centos              webserver           4e9582af70b3        9 minutes ago       605.1 MB
 
 
 #### 作成したコンテナイメージから、sshdを起動した状態でコンテナを立ち上げてみる
