@@ -79,7 +79,7 @@ Docker
 > CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS           >         NAMES
 > f267d0eafcaf        centos:webserver    /usr/sbin/sshd -D   16 seconds ago      Up 14 seconds       0.0.0.0:49153->22/tcp   boring_pasteur
 
-#### PORTSの部分にある"0.0.0.0:49155->22/tcp"のような記述が、コンテナの22番ポートがホストの49155番にバインドされているという意味。
+* PORTSの部分にある"0.0.0.0:49155->22/tcp"のような記述が、コンテナの22番ポートがホストの49155番にバインドされているという意味。*  
 
 #### 起動したコンテナのIPアドレスの確認
 `$ ifconfig`  
