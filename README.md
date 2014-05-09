@@ -1,6 +1,6 @@
 Docker
 ======
-事前準備
+# 事前準備
 
 # 自分のMAC等においてあるDockerfileのコピー
 gcutil --project="YOUR PROJECT NAME" push "YOUR SERVER NAME" /Users/a12431/Develop/ss/docker /tmp
