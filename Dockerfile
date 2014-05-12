@@ -1,6 +1,6 @@
 FROM centos
 
-MAINTAINER a12431
+MAINTAINER k1row
 
 # Set locale
 ENV LC_ALL C
