@@ -170,11 +170,3 @@ server {
 
 #### 依存関係などはdocker images の --treeオプションを使うとわかりやすい
 `$ sudo docker images --tree`  
-
-# 参考URL
-<http://memocra.blogspot.jp/2014/02/dockerdockernginxweb.html>  
-<http://yss44.hatenablog.com/entry/2014/01/02/083600>  
-<http://nekok.com/2014/01/docker-memo-2/>  
-<http://qiita.com/mopemope/items/181cb6c6c6f7cf9bbaa9>  
-<http://yss44.hatenablog.com/entry/2013/12/27/150920>  
-<http://dev.classmethod.jp/cloud/aws/firststep-docker-on-ec2/>  
