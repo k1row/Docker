@@ -136,9 +136,8 @@ server {
     }
 }
 
-
 #### hostサーバ側のnginx起動して確認してみる
-
+![Alt text](/Users/a12431/Downloads/Welcome to nginx!.png)
 成功
 
 #### ついでにhostサーバ側のnginx落としてブラウザでアクセスすると、ちゃんと落ちてる事が確認できる
