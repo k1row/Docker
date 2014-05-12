@@ -1,6 +1,6 @@
 Docker
 ======
-Dockerを利用して、CentOS + nginx サーバの構築
+Dockerを利用して、GCEにCentOS + nginx サーバの構築
 
 # 事前準備
 
