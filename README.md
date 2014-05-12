@@ -1,7 +1,7 @@
 Docker
 ======
 Dockerを利用して、GCEにCentOS + nginx サーバの構築  
-GCEの設定型は割愛  
+GCEの設定とかは割愛  
 
 # 事前準備
 
