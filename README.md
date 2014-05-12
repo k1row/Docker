@@ -75,14 +75,18 @@ GCEの設定とかは割愛
 #### 作成したコンテナイメージから、sshdを起動した状態でコンテナを立ち上げてみる
 *-dオプションでバックグラウンド起動*  
 *-pオプションでポートフォワーディング*  
+`docker run -p 80 -p 22 -d centos:webserver /usr/bin/supervisord`  
+  
+ex)SSHだけsupervisor抜きで起動したい  
 `$ sudo docker run -d -p 22 centos:webserver /usr/sbin/sshd -D`  
+  
 
 #### 起動したコンテナを確認
 `$ sudo docker ps`  
-> CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS           >         NAMES
-> f267d0eafcaf        centos:webserver    /usr/sbin/sshd -D   16 seconds ago      Up 14 seconds       0.0.0.0:49153->22/tcp   boring_pasteur
+> CONTAINER ID        IMAGE               COMMAND                CREATED              STATUS              PORTS       >                                    NAMES
+> f6a46801bdbf        centos:webserver    /usr/bin/supervisord   About a minute ago   Up About a minute   > 0.0.0.0:49153->22/tcp, 0.0.0.0:49154->80/tcp   agitated_curie
 
-* PORTSの部分にある"0.0.0.0:49155->22/tcp"のような記述が、コンテナの22番ポートがホストの49155番にバインドされているという意味。*  
+* PORTSの部分にある"0.0.0.0:49153->22/tcp"のような記述が、コンテナの22番ポートがホストの49155番にバインドされているという意味。*  
 
 #### 起動したコンテナのIPアドレスの確認
 `$ ifconfig`  
@@ -95,7 +99,6 @@ GCEの設定とかは割愛
           collisions:0 txqueuelen:0
           RX bytes:2783150 (2.6 MiB)  TX bytes:201929190 (192.5 MiB)  
 
-  
 
 #### 実際にSSH
 `$ ssh -i ~/docker_ssh/docker_rsa -l docker 172.17.42.1 -p 49153`  
@@ -105,8 +108,45 @@ Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '[172.17.42.1]:49153' (RSA) to the list of known hosts.
 [docker@f267d0eafcaf ~]$
 
+
+# ホスト側のnginxプロキシの設定を行う  
+#### ホストにもnginxをインストール  
+`$ sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm`  
+`$ sudo yum -y install nginx`  
+
+
+#### プロキシの設定
+`$ sudo vi /etc/nginx/conf.d/proxy.conf`  
+
+proxy_redirect                          off;  
+proxy_set_header Host                   $host;  
+proxy_set_header X-Real-IP              $remote_addr;  
+proxy_set_header X-Forwarded-Host       $host;  
+proxy_set_header X-Forwarded-Server     $host;  
+proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;  
+
+#### サーバの設定
+`$ sudo vi /etc/nginx/conf.d/virtual.conf`
+server {
+    listen 80;
+    server_name EXTERNAL IP;  // GCEのIP
+
+    location / {
+        proxy_pass http://127.0.0.1:49154; // さっき調べたポート
+    }
+}
+
+
+# hostサーバ側のnginx起動して確認してみる
+
+成功
+
+# ついでにhostサーバ側のnginx落としてブラウザでアクセスすると、ちゃんと落ちてる事を確認
+
+
+
   
-# Dokerのコマンド関連
+# その他Dokerのコマンド関連
 
 #### コンテナの確認
 `$ sudo docker ps -a`  
