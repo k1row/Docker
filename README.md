@@ -127,14 +127,14 @@ Warning: Permanently added '[172.17.42.1]:49153' (RSA) to the list of known host
 
 #### サーバの設定
 `$ sudo vi /etc/nginx/conf.d/virtual.conf`
-    server {
-        listen 80;
-        server_name EXTERNAL IP;  // GCEのIP
-    
-        location / {
-            proxy_pass http://127.0.0.1:49154; // さっき調べたポート
-        }
+server {
+    listen 80;
+    server_name EXTERNAL IP;  // GCEのIP
+
+    location / {
+        proxy_pass http://127.0.0.1:49154; // さっき調べたポート
     }
+}
 
 #### hostサーバ側のnginx起動して確認してみる
 いつものnginxの画面が出れば成功
