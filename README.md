@@ -118,27 +118,35 @@ Warning: Permanently added '[172.17.42.1]:49153' (RSA) to the list of known host
 #### プロキシの設定
 `$ sudo vi /etc/nginx/conf.d/proxy.conf`  
 
-proxy_redirect                          off;  
-proxy_set_header Host                   $host;  
-proxy_set_header X-Real-IP              $remote_addr;  
-proxy_set_header X-Forwarded-Host       $host;  
-proxy_set_header X-Forwarded-Server     $host;  
-proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;  
+    proxy_redirect                          off;  
+    proxy_set_header Host                   $host;  
+    proxy_set_header X-Real-IP              $remote_addr;  
+    proxy_set_header X-Forwarded-Host       $host;  
+    proxy_set_header X-Forwarded-Server     $host;  
+    proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;  
 
 #### サーバの設定
 `$ sudo vi /etc/nginx/conf.d/virtual.conf`
-server {
-    listen 80;
-    server_name EXTERNAL IP;  // GCEのIP
-
-    location / {
-        proxy_pass http://127.0.0.1:49154; // さっき調べたポート
+    server {
+        listen 80;
+        server_name EXTERNAL IP;  // GCEのIP
+    
+        location / {
+            proxy_pass http://127.0.0.1:49154; // さっき調べたポート
+        }
     }
-}
 
 #### hostサーバ側のnginx起動して確認してみる
-![Alt text](/Users/a12431/Downloads/Welcome to nginx!.png)
-成功
+いつものnginxの画面が出れば成功
+
+    Welcome to nginx!
+    
+    If you see this page, the nginx web server is successfully installed and working. Further configuration is     required.
+    
+    For online documentation and support please refer to nginx.org.
+    Commercial support is available at nginx.com.
+
+    Thank you for using nginx.
 
 #### ついでにhostサーバ側のnginx落としてブラウザでアクセスすると、ちゃんと落ちてる事が確認できる
 
