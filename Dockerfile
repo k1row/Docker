@@ -3,9 +3,6 @@ FROM centos
 MAINTAINER a12431
 
 # Set locale
-#RUN locale-gen en_US.UTF-8
-#RUN update-locale LANG=en_US.UTF-8
-#ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C
 ENV LC_ALL en_US.UTF-8
 
@@ -26,7 +23,6 @@ RUN yum -y install openssh-clients
 
 # Create User
 RUN useradd docker
-#RUN passwd -f -u docker
 RUN echo 'docker:dockerpasswd' | chpasswd
 
 # Set up SSH
@@ -65,8 +61,6 @@ RUN mkdir -p  /etc/supervisord/conf/
 ADD supervisor.conf /etc/supervisord/conf/service.conf
 
 EXPOSE 22 80
-
-#RUN /etc/init.d/sshd start
 
 # 起動時にsupervisordを実行
 CMD ["/usr/bin/supervisord"]
