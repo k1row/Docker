@@ -47,13 +47,13 @@ RUN echo "docker   ALL=(ALL)   ALL" > /etc/sudoers.d/docker
 RUN rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 RUN yum -y install nginx
 
-# MySQLクライアントのインストール
+# Install MySQL Client
 RUN yum -y --enablerepo=remi,epel,rpmforge install mysql-client mysql-devel
 
 # Install supervisord
 RUN easy_install supervisor
 
-# supervisordの設定
+# supervisord
 RUN echo_supervisord_conf > /etc/supervisord.conf
 RUN echo '[include]' >> /etc/supervisord.conf
 RUN echo 'files = supervisord/conf/*.conf' >> /etc/supervisord.conf
@@ -62,6 +62,6 @@ ADD supervisor.conf /etc/supervisord/conf/service.conf
 
 EXPOSE 22 80
 
-# 起動時にsupervisordを実行
+# Run supervisord at startup
 CMD ["/usr/bin/supervisord"]
 
